@@ -1,0 +1,22 @@
+# Bỏ qua toàn bộ thư mục dataset
+flower_photos/
+
+# Bỏ qua các tệp nén (.tgz, .zip, .rar)
+*.tgz
+*.zip
+*.rar
+
+
+
+# Bỏ qua các tệp ảnh test ở thư mục gốc
+# Gợi ý: Nên tạo một thư mục riêng như "test_images" để chứa chúng
+# và bỏ thư mục đó vào gitignore nếu không muốn đưa lên.
+*.jpeg
+*.jpg
+*.png
+
+# Bỏ qua các thư mục và tệp hệ thống/IDE/Python
+__pycache__/
+venv/
+.vscode/
+*.pyc
