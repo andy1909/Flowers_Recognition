@@ -6,7 +6,6 @@ from tensorflow.keras.utils import image_dataset_from_directory
 import matplotlib.pyplot as plt
 
 
-# --- 1. CÁC THAM SỐ CẤU HÌNH ---
 
 data_dir = 'flower_photos'  
 
@@ -18,7 +17,6 @@ batch_size = 32
 epochs = 10
 
 
-# --- 2. TẢI VÀ CHUẨN BỊ DỮ LIỆU ---
 
 print("Đang tải tập dữ liệu huấn luyện...")
 train_ds = image_dataset_from_directory(data_dir,
@@ -36,21 +34,17 @@ val_ds = image_dataset_from_directory(data_dir,
                                       image_size=(img_height, img_width),
                                       batch_size=batch_size)
 
-# Lấy ra tên của các lớp (classes) từ tên thư mục
 class_names = train_ds.class_names
 num_classes = len(class_names)
 print(f"\nĐã tìm thấy các lớp: {class_names}")
 print(f"Tổng số lớp: {num_classes}")
 
 
-# --- 3. TỐI ƯU HÓA HIỆU SUẤT DỮ LIỆU ---
-# Sử dụng cache và prefetch để tăng tốc độ đọc dữ liệu trong quá trình huấn luyện
 AUTOTUNE = tf.data.AUTOTUNE
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
 val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
 
-# --- 4. XÂY DỰNG KIẾN TRÚC MÔ HÌNH CNN ---
 
 model = Sequential([
     Rescaling(1./255, input_shape=(img_height, img_width, 3)),
@@ -81,17 +75,14 @@ model = Sequential([
 ])
 
 
-# --- 5. BIÊN DỊCH MÔ HÌNH (COMPILE) ---
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-# In ra cấu trúc của mô hình
 print("\nCấu trúc của mô hình CNN:")
 model.summary()
 
 
-# --- 6. HUẤN LUYỆN MÔ HÌNH ---
 print("\nBắt đầu quá trình huấn luyện...")
 history = model.fit(train_ds,
                     validation_data=val_ds,
@@ -100,12 +91,11 @@ history = model.fit(train_ds,
 print("Hoàn tất huấn luyện!")
 
 
-# --- 7. LƯU MÔ HÌNH ĐÃ HUẤN LUYỆN ---
-model.save('face_recognition_model.h5')
-print("\nĐã lưu mô hình đã huấn luyện vào file 'CNN_model.h5'")
+model.save('flower_recognition_model.h5')
+
+print("\nĐã lưu mô hình đã huấn luyện vào file 'flower_recognition_model.h5'")
 
 
-# --- 8. ĐÁNH GIÁ VÀ VẼ BIỂU ĐỒ KẾT QUẢ ---
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
 loss = history.history['loss']
