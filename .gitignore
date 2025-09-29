@@ -6,6 +6,8 @@ flower_photos/
 *.zip
 *.rar
 
+# Bỏ qua tất cả các tệp model đã huấn luyện
+*.h5
 
 
 # Bỏ qua các tệp ảnh test ở thư mục gốc
